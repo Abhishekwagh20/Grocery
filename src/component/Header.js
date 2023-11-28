@@ -19,6 +19,8 @@ const Header = () => {
         dispatch(logoutRedux());
         toast("Logout successfully");
       };
+      const test =  fetch(`${process.env.REACT_APP_ADMIN_EMAIL}`)
+      console.log(test)
   return (
     <header className='fixed shadow-md w-full h-16 px-2 md:px-4 z-50'>
         <div className="flex items-center h-full justify-between">
