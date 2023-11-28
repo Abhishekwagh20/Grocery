@@ -64,7 +64,7 @@ function Signup() {
           }
   
           const dataRes = await fetchData.json();
-          console.log(dataRes)
+          //console.log(dataRes)
           toast(dataRes.message);
   
           if (dataRes.alert) {
