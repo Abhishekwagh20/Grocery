@@ -43,7 +43,7 @@ const Newproduct = () => {
     const {name,image,category,price} = data
 
     if(name && image && category && price){
-      const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/uploadProduct`,{
+      const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/uploadProduct`,{
         method : "POST",
         headers : {
           "content-type" : "application/json"
@@ -84,13 +84,13 @@ const Newproduct = () => {
           <option value={"fruits"}>Fruits</option>
           <option value={"vegetable"}>Vegetable</option>
           <option value={"icream"}>Icream</option>
-          <option value={"dosa"}>Dosa</option>
+          <option value={"milk"}>Milk</option>
           <option value={"pizza"}>Pizza</option>
           <option value={"rice"}>rice</option>
           <option value={"cake"}>Cake</option>
           <option value={"burger"}>Burger</option>
-          <option value={"panner"}>Panner</option>
-          <option value={"sandwich"}>Sandwich</option>
+          <option value={"oil"}>Oil</option>
+          <option value={"sauce"}>Sauce</option>
         </select>
 
         <label htmlFor='image'>Image
