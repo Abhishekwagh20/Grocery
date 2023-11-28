@@ -1,121 +1,124 @@
 import React, { useState } from "react";
 import loginSignupImage from "../assets/login-animation.gif";
 import { BiShow, BiHide } from "react-icons/bi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BsEmojiSmileUpsideDown } from "react-icons/bs";
-import { ImagetoBase64 } from "../utility/ImagetoBase64.js";
-import { toast } from "react-hot-toast";
-const Login = () => {
+import {toast} from "react-hot-toast"
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginRedux } from "../redux/userSlice";
 
-    const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+
+const Login = () => {
+    const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
-    confirmPassword: "",
-    image : ""
   });
+  const navigate = useNavigate()  
+  const userData = useSelector(state => state)
+
+
+  const dispatch = useDispatch()
+
+
+
 
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
   };
-  
 
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setData((preve) => {
-      return {
-        ...preve,
-        [name]: value,
-      };
-    });
-  };
-
-  const handleUploadProfileImage = async(e)=>{
-      const data = await ImagetoBase64(e.target.files[0])
-  
-
-      setData((preve)=>{
-          return{
+  const handleOnChange = (e)=>{
+    const {name,value} = e.target
+    setData((preve)=>{
+        return{
             ...preve,
-            image : data
-          }
+            [name] : value
+        }
+    })
+  }
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault()
+    const {email,password} = data
+    if(email && password ){
+      const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMIN}/login`,{
+        method : "POST",
+        headers : {
+          "content-type" : "application/json"
+        },
+        body : JSON.stringify(data)
       })
 
-  }
-console.log(process.env.REACT_APP_SERVER_DOMIN)
-  const handleSubmit = async(e) => {
-    e.preventDefault();
-    const {email, password} = data;
-    if (email && password ) {
-      alert("Successful")
-    } else {
-      alert("Please Enter required fields");
+      const dataRes = await fetchData.json()
+      console.log(dataRes)
+      
+      toast(dataRes.message)
+      
+      if(dataRes.alert){
+        dispatch(loginRedux(dataRes))
+        setTimeout(() => {
+          navigate("/")
+        }, 1000);
+      }
+
+      console.log(userData)
     }
-  };
+    else{
+        alert("Please Enter required fields")
+    }
+  }
 
   return (
     <div className="p-3 md:p-4">
-      <div className="w-full max-w-sm bg-white m-auto flex  flex-col p-4">
-        {/* <h1 className='text-center text-2xl font-bold'>Sign up</h1> */}
-        <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative ">
-          <img src={data.image ? data.image :  loginSignupImage} className="w-full h-full" />
+    <div className="w-full max-w-sm bg-white m-auto flex  flex-col p-4">
+      {/* <h1 className='text-center text-2xl font-bold'>Sign up</h1> */}
+      <div className="w-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto">
+        <img src={loginSignupImage} className="w-full" />
+      </div>
 
-          <label htmlFor="profileImage">
-            <div className="absolute bottom-0 h-1/3  bg-slate-500 bg-opacity-50 w-full text-center cursor-pointer">
-              <p className="text-sm p-1 text-white">Upload</p>
-            </div>
-            <input type={"file"} id="profileImage" accept="image/*" className="hidden" onChange={handleUploadProfileImage}/>
-          </label>
-        </div>
+      <form className="w-full py-3 flex flex-col" onSubmit={handleSubmit}>
+        <label htmlFor="email">Email</label>
+        <input
+          type={"email"}
+          id="email"
+          name="email"
+          className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
+          value={data.email}
+          onChange={handleOnChange}
 
-        <form className="w-full py-3 flex flex-col" onSubmit={handleSubmit}>
-          
+        />
 
-          <label htmlFor="email">Email</label>
+        <label htmlFor="password">Password</label>
+        <div className="flex px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300">
           <input
-            type={"email"}
-            id="email"
-            name="email"
-            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
-            value={data.email}
+            type={showPassword ? "text" : "password"}
+            id="password"
+            name="password"
+            className=" w-full bg-slate-200 border-none outline-none "
+            value={data.password}
             onChange={handleOnChange}
           />
+          <span
+            className="flex text-xl cursor-pointer"
+            onClick={handleShowPassword}
+          >
+            {showPassword ? <BiShow /> : <BiHide />}
+          </span>
+        </div>
 
-          <label htmlFor="password">Password</label>
-          <div className="flex px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300">
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-              className=" w-full bg-slate-200 border-none outline-none "
-              value={data.password}
-              onChange={handleOnChange}
-            />
-            <span
-              className="flex text-xl cursor-pointer"
-              onClick={handleShowPassword}
-            >
-              {showPassword ? <BiShow /> : <BiHide />}
-            </span>
-          </div>
-
-          
-
-          <button className="w-full max-w-[150px] m-auto  bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
-            Login
-          </button>
-        </form>
-        <p className="text-left text-sm mt-2">
-          Don't have account ?{" "}
-          <Link to={"/signup"} className="text-red-500 underline">
-            Sign up
-          </Link>
-        </p>
-      </div>
+        <button className="w-full max-w-[150px] m-auto  bg-red-500 hover:bg-red-600 cursor-pointer  text-white text-xl font-medium text-center py-1 rounded-full mt-4">
+          Login
+        </button>
+      </form>
+      <p className="text-left text-sm mt-2">
+        Don't  have account ?{" "}
+        <Link to={"/signup"} className="text-red-500 underline">
+          Sign Up
+        </Link>
+      </p>
     </div>
+  </div>
   )
 }
 
