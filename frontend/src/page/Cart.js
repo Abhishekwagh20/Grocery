@@ -23,7 +23,6 @@ const Cart = () => {
 
     const handlePayment = async () => {
       if (user.email) {
-        // Modify this part to include the product details
         const products = productCartItem.map(product => ({
           _id: product._id,
           name: product.name,
@@ -52,8 +51,7 @@ const Cart = () => {
     
         toast("Redirect to payment Gateway...!");
         navigate("/payment")
-        // Dispatch the action to clear the cart after successful payment
-        // dispatch(clearCart());
+        
       } else {
         toast("You have not logged in!");
         navigate("/login")
@@ -70,7 +68,6 @@ const Cart = () => {
 
         {productCartItem[0] ?
         <div className="my-4 flex gap-3">
-          {/* display cart items  */}
           <div className="w-full max-w-3xl ">
             {productCartItem.map((el) => {
               return (
@@ -88,7 +85,6 @@ const Cart = () => {
             })}
           </div>
 
-          {/* total cart item  */}
           <div className="w-full max-w-md  ml-auto">
             <h2 className="bg-blue-500 text-white p-2 text-lg">Summary</h2>
             <div className="flex w-full py-2 text-lg border-b">
