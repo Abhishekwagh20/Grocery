@@ -70,6 +70,8 @@ Once a user selects a product for purchase, they can choose in-store pickup or h
 - AI Recommender
 
 
+## 4. Output
+
 
 ## How to Run the Application
 
