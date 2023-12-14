@@ -26,7 +26,6 @@ const PaymentAnalytics = () => {
 
 
   const renderPieChart = (data) => {
-    // Assuming 'data' is an array of objects with 'itemName' and 'itemPrice' properties
 
     // Clear previous chart if any
     d3.select('#d3-chart-container').selectAll('*').remove();
@@ -103,8 +102,8 @@ const PaymentAnalytics = () => {
     .selectAll('text')
     .style('text-anchor', 'end')
     .attr('transform', 'rotate(-45)')
-    .attr('dy', '0.5em') // Adjust text position for better readability
-    .attr('dx', '-0.5em'); // Adjust text position for better readability
+    .attr('dy', '0.5em') 
+    .attr('dx', '-0.5em'); 
   svg.append('text')
     .attr('transform', `translate(${width / 2}, ${height + margin.top + 40})`)
     .style('text-anchor', 'middle')
@@ -234,7 +233,6 @@ const PaymentAnalytics = () => {
 
       <div id="d3-chart-container"></div>
 
-      {/* Buttons for additional functionality */}
       <div style={styles.buttonContainer}>
         <button onClick={handleMostSoldProducts} style={styles.button}>
           <RiBarChartHorizontalFill style={styles.buttonIcon} />
