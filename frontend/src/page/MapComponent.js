@@ -22,7 +22,7 @@ const MapComponent = ({ coordinates }) => {
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyBuw_qnqqQnzVTBJnQiLMu7zhJWGRPybQM" }}
+        bootstrapURLKeys={{ key: "Add you key" }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
