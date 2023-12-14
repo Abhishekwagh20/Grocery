@@ -1,0 +1,14 @@
+.search-container {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%; /* Position the dropdown below the search bar */
+  left: 0;
+  width: 100%;
+  background-color: #fff; /* Add a background color for the dropdown */
+  border: 1px solid #ddd; /* Add a border for better visibility */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  z-index: 1; /* Ensure the dropdown appears above other elements */
+}
