@@ -249,7 +249,6 @@ const Payment = () => {
             >
               <option value="location1">Location 1</option>
               <option value="location2">Location 2</option>
-              {/* Add more pickup locations as needed */}
             </select>
           </div>
         )}
@@ -258,7 +257,6 @@ const Payment = () => {
           Submit Payment
         </button>
       </form>
-      {/* <MapComponent coordinates={nearbyLocations}/> */}
     </div>
     
   );
