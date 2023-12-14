@@ -70,7 +70,7 @@ Once a user selects a product for purchase, they can choose in-store pickup or h
 - AI Recommender
 
 
-## 4. Output
+## 4. [Output] (https://github.com/Abhishekwagh20/Grocery/blob/main/Screenshots.pdf)
 
 
 ## How to Run the Application
